@@ -69,6 +69,14 @@ const Footer = () => {
                 Contact
               </Link>
             </li>
+            <li>
+              <Link
+                to="/register"
+                className="hover:text-blue-700 transition-colors duration-200"
+              >
+                Register
+              </Link>
+            </li>
           </ul>
         </nav>
 
