@@ -133,3 +133,15 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.cta {
+  background-image: url("../src/assets/cta_image.jpg");
+  height: 80vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
