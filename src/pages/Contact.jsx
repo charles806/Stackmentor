@@ -8,7 +8,7 @@ const Contact = () => {
         <h1 className="text-3xl md:text-5xl font-bold text-[#1E3A8A] mb-4">
           Get in Touch
         </h1>
-        <p className="text-[#000] text-[15px] md:text-[18px] leading-relaxed">
+        <p className="text-black text-[15px] md:text-[18px] leading-relaxed">
           Have questions about StackMentor programs or partnerships?
           <br /> Reach out and we’ll respond within 24 hours.
         </p>
@@ -64,7 +64,7 @@ const Contact = () => {
         <div className="p-10 flex flex-col justify-center">
           <form className="space-y-6">
             <div>
-              <label className="block text-sm font-semibold text-[#000] mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Full Name
               </label>
               <input
@@ -75,7 +75,7 @@ const Contact = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[#000] mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Email Address
               </label>
               <input
@@ -86,7 +86,7 @@ const Contact = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[#000] mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Message
               </label>
               <textarea

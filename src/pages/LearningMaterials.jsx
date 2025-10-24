@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const LearningMaterials = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-linear-to-br from-green-50 to-blue-50 flex flex-col items-center justify-center p-6">
       <div className="bg-white shadow-xl rounded-2xl p-8 max-w-3xl w-full border border-gray-100">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">
           🎓 Welcome to Your Learning Dashboard
