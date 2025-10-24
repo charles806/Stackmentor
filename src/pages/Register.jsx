@@ -101,7 +101,7 @@ const Register = () => {
             <div className="flex items-center gap-4">
               <button
                 type="button"
-                className={`px-6 py-2 rounded-lg border ${
+                className={`px-6 cursor-pointer py-2 rounded-lg border ${
                   paymentType === "oneTime"
                     ? "bg-[#1E3A8A] text-white"
                     : "bg-gray-100 text-gray-700"
@@ -112,7 +112,7 @@ const Register = () => {
               </button>
               <button
                 type="button"
-                className={`px-6 py-2 rounded-lg border ${
+                className={`px-6 cursor-pointer py-2 rounded-lg border ${
                   paymentType === "part"
                     ? "bg-[#1E3A8A] text-white"
                     : "bg-gray-100 text-gray-700"
@@ -148,7 +148,7 @@ const Register = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-[#1E3A8A] hover:bg-[#14286E] text-white px-8 py-3 rounded-lg font-medium transition-all"
+              className="bg-[#1E3A8A] cursor-pointer hover:bg-[#14286E] text-white px-8 py-3 rounded-lg font-medium transition-all"
             >
               Pay Now
             </button>

@@ -15,8 +15,8 @@ const LearningMaterials = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-[#E8EBF3]  rounded-xl p-5 hover:shadow-md transition">
-            <h3 className="font-semibold text-blue-700 text-lg mb-2">
-              Web Development Basics
+            <h3 className="font-semibold text-black  text-lg mb-2">
+              Frontend Web Development
             </h3>
             <p className="text-sm text-gray-600 mb-3">
               Learn HTML, CSS, and JavaScript fundamentals with practical
@@ -34,9 +34,8 @@ const LearningMaterials = () => {
             <h3 className="font-semibold text-black text-lg mb-2">
               Advanced Frontend Design
             </h3>
-            <p className="text-sm text-gray-600 mb-3">
-              Dive into Tailwind CSS, animations, and building responsive
-              layouts.
+            <p className="text-sm text-black mb-3">
+              Dive into Tailwind CSS, animations, and Frontend Frameworks.
             </p>
             <a
               href="#"
@@ -48,14 +47,14 @@ const LearningMaterials = () => {
 
           <div className="bg-[#E8EBF3]  rounded-xl p-5 hover:shadow-md transition">
             <h3 className="font-semibold text-black text-lg mb-2">
-              Backend with Node.js
+              Backend Web Development
             </h3>
-            <p className="text-sm text-gray-600 mb-3">
+            <p className="text-sm text-black mb-3">
               Understand Express.js, APIs, and connecting your app to databases.
             </p>
             <a
               href="#"
-              className="text-sm text-red-600 hover:underline font-medium"
+              className="text-sm text-black hover:underline font-medium"
             >
               Watch Video →
             </a>
@@ -63,9 +62,9 @@ const LearningMaterials = () => {
 
           <div className="bg-[#E8EBF3] rounded-xl p-5 hover:shadow-md transition">
             <h3 className="font-semibold text-black text-lg mb-2">
-              Final Assessment
+              Full Stack Development
             </h3>
-            <p className="text-sm text-gray-600 mb-3">
+            <p className="text-sm text-black mb-3">
               Test your knowledge and earn your certificate of completion.
             </p>
             <a
