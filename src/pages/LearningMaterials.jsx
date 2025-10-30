@@ -1,88 +1,173 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getCurrentUser } from "../components/API/api.jsx";
 
 const LearningMaterials = () => {
+  const [user, setUser] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const data = await getCurrentUser();
+
+        if (!data.hasAccess) {
+          navigate("/payment");
+          return;
+        }
+
+        if (data.user.course !== "fullstack") {
+          navigate(`/learning-materials-${data.user.course}`);
+          return;
+        }
+
+        setUser(data.user);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+        navigate("/login");
+      }
+    };
+
+    fetchUserData();
+  }, [navigate]);
+
+  useEffect(() => {
+    if (!user || !user.accessExpiresAt) return;
+
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const expiry = new Date(user.accessExpiresAt).getTime();
+      const distance = expiry - now;
+
+      if (distance <= 0) {
+        clearInterval(timer);
+        navigate("/payment");
+      } else {
+        setTimeLeft(distance);
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [user, navigate]);
+
+  const formatTime = (ms) => {
+    if (!ms) return "Unlimited access";
+    const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((ms / 1000 / 60) % 60);
+    const seconds = Math.floor((ms / 1000) % 60);
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg">Loading your dashboard...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-linear-to-br from-green-50 to-blue-50 flex flex-col items-center justify-center p-6">
-      <div className="bg-white shadow-xl rounded-2xl p-8 max-w-3xl w-full border border-gray-100">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">
-          🎓 Welcome to Your Learning Dashboard
-        </h1>
-        <p className="text-center text-gray-600 mb-8">
-          Congratulations! Your payment was successful. You now have access to
-          all your learning materials below.
-        </p>
+    <div className="min-h-screen bg-[#D2D7E7] p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="bg-white shadow-xl rounded-2xl p-8 mb-6">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            🎓 Welcome, {user?.fullName}!
+          </h1>
+          <p className="text-gray-600 mb-4">Full Stack Development Course</p>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-[#E8EBF3]  rounded-xl p-5 hover:shadow-md transition">
-            <h3 className="font-semibold text-black  text-lg mb-2">
-              Frontend Web Development
-            </h3>
-            <p className="text-sm text-gray-600 mb-3">
-              Learn HTML, CSS, and JavaScript fundamentals with practical
-              examples.
-            </p>
-            <a
-              href="#"
-              className="text-sm text-black hover:underline font-medium"
-            >
-              View Material →
-            </a>
-          </div>
+          {user?.accessExpiresAt && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <p className="text-sm text-gray-700">
+                ⏰ Access expires in:{" "}
+                <span className="font-bold text-yellow-700">
+                  {formatTime(timeLeft)}
+                </span>
+              </p>
+              {user?.remainingAmount > 0 && (
+                <p className="text-sm text-gray-700 mt-2">
+                  💰 Remaining balance:{" "}
+                  <span className="font-bold">
+                    ₦{user.remainingAmount.toLocaleString()}
+                  </span>
+                </p>
+              )}
+            </div>
+          )}
 
-          <div className="bg-[#E8EBF3]  rounded-xl p-5 hover:shadow-md transition">
-            <h3 className="font-semibold text-black text-lg mb-2">
-              Advanced Frontend Design
-            </h3>
-            <p className="text-sm text-black mb-3">
-              Dive into Tailwind CSS, animations, and Frontend Frameworks.
-            </p>
-            <a
-              href="#"
-              className="text-sm text-green-600 hover:underline font-medium"
-            >
-              Download PDF →
-            </a>
-          </div>
-
-          <div className="bg-[#E8EBF3]  rounded-xl p-5 hover:shadow-md transition">
-            <h3 className="font-semibold text-black text-lg mb-2">
-              Backend Web Development
-            </h3>
-            <p className="text-sm text-black mb-3">
-              Understand Express.js, APIs, and connecting your app to databases.
-            </p>
-            <a
-              href="#"
-              className="text-sm text-black hover:underline font-medium"
-            >
-              Watch Video →
-            </a>
-          </div>
-
-          <div className="bg-[#E8EBF3] rounded-xl p-5 hover:shadow-md transition">
-            <h3 className="font-semibold text-black text-lg mb-2">
-              Full Stack Development
-            </h3>
-            <p className="text-sm text-black mb-3">
-              Test your knowledge and earn your certificate of completion.
-            </p>
-            <a
-              href="#"
-              className="text-sm text-yellow-600 hover:underline font-medium"
-            >
-              Take Quiz →
-            </a>
-          </div>
+          {!user?.accessExpiresAt && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <p className="text-sm text-green-700 font-medium">
+                ✅ You have unlimited access to this course!
+              </p>
+            </div>
+          )}
         </div>
 
-        <div className="text-center mt-8">
-          <Link
-            to="/"
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            Back to Home
-          </Link>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
+            <h3 className="font-semibold text-black text-xl mb-3">
+              Frontend Development
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Master HTML, CSS, JavaScript, React, and modern frontend tools.
+            </p>
+            <ul className="text-sm text-gray-700 space-y-2 mb-4">
+              <li>✓ HTML5 & CSS3 Fundamentals</li>
+              <li>✓ JavaScript ES6+</li>
+              <li>✓ React.js & Component Architecture</li>
+              <li>✓ Responsive Design & Tailwind CSS</li>
+            </ul>
+            <button className="bg-[#1E3A8A] text-white px-4 py-2 rounded-lg hover:bg-[#14286E] transition">
+              Start Learning
+            </button>
+          </div>
+
+          <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
+            <h3 className="font-semibold text-black text-xl mb-3">
+              Backend Development
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Build robust server-side applications with Node.js, Express, and
+              databases.
+            </p>
+            <ul className="text-sm text-gray-700 space-y-2 mb-4">
+              <li>✓ Node.js & Express.js</li>
+              <li>✓ RESTful API Development</li>
+              <li>✓ MongoDB & Database Design</li>
+              <li>✓ Authentication & Security</li>
+            </ul>
+            <button className="bg-[#1E3A8A] text-white px-4 py-2 rounded-lg hover:bg-[#14286E] transition">
+              Start Learning
+            </button>
+          </div>
+
+          <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
+            <h3 className="font-semibold text-black text-xl mb-3">
+              Projects & Practice
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Build real-world applications to strengthen your portfolio.
+            </p>
+            <button className="bg-[#1E3A8A] text-white px-4 py-2 rounded-lg hover:bg-[#14286E] transition">
+              View Projects
+            </button>
+          </div>
+
+          <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
+            <h3 className="font-semibold text-black text-xl mb-3">
+              Resources & Support
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Access documentation, tutorials, and community support.
+            </p>
+            <button className="bg-[#1E3A8A] text-white px-4 py-2 rounded-lg hover:bg-[#14286E] transition">
+              Get Help
+            </button>
+          </div>
         </div>
       </div>
     </div>

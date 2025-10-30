@@ -1,15 +1,23 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { initializePayment } from "../components/API/api.jsx";
 
 const Register = () => {
-  const [course, setCourse] = useState("Frontend");
+  const [course, setCourse] = useState("frontend");
   const [paymentType, setPaymentType] = useState("oneTime");
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // Define course prices
   const prices = {
-    Frontend: { oneTime: 50000, part: { upfront: 30000, later: 20000 } },
-    Backend: { oneTime: 70000, part: { upfront: 42000, later: 28000 } },
-    Fullstack: { oneTime: 100000, part: { upfront: 60000, later: 40000 } },
+    frontend: { oneTime: 50000, part: { upfront: 30000, later: 20000 } },
+    backend: { oneTime: 70000, part: { upfront: 42000, later: 28000 } },
+    fullstack: { oneTime: 100000, part: { upfront: 60000, later: 40000 } },
   };
 
   const currentPrice =
@@ -17,17 +25,39 @@ const Register = () => {
       ? prices[course].oneTime
       : prices[course].part.upfront;
 
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     alert("Redirecting to payment gateway...");
-  //   };
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Payment successful (demo mode)");
-    navigate("/learning-materials");
+    setLoading(true);
+    setError("");
+
+    try {
+      const payload = {
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+        course: course.toLowerCase(), // Normalize to lowercase
+        paymentType: paymentType === "oneTime" ? "full" : "part",
+        amount: currentPrice,
+      };
+
+      const data = await initializePayment(payload);
+
+      if (data.authorization_url) {
+        // Redirect to Paystack payment page
+        window.location.href = data.authorization_url;
+      } else {
+        setError("Payment initialization failed. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.error || "Error connecting to server");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -45,6 +75,9 @@ const Register = () => {
             </label>
             <input
               type="text"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
               required
               placeholder="Enter your full name"
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1E3A8A] outline-none"
@@ -58,21 +91,44 @@ const Register = () => {
             </label>
             <input
               type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               required
               placeholder="Enter your email"
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1E3A8A] outline-none"
             />
           </div>
 
-          {/* Phone Number */}
+          {/* Phone */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Phone Number
             </label>
             <input
               type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
               required
               placeholder="Enter your phone number"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1E3A8A] outline-none"
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              minLength="6"
+              placeholder="Create a password (min 6 characters)"
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1E3A8A] outline-none"
             />
           </div>
@@ -87,9 +143,9 @@ const Register = () => {
               onChange={(e) => setCourse(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1E3A8A] outline-none"
             >
-              <option value="Frontend">Frontend Development</option>
-              <option value="Backend">Backend Development</option>
-              <option value="Fullstack">Full Stack Development</option>
+              <option value="frontend">Frontend Development</option>
+              <option value="backend">Backend Development</option>
+              <option value="fullstack">Full Stack Development</option>
             </select>
           </div>
 
@@ -101,10 +157,10 @@ const Register = () => {
             <div className="flex items-center gap-4">
               <button
                 type="button"
-                className={`px-6 cursor-pointer py-2 rounded-lg border ${
+                className={`px-6 cursor-pointer py-2 rounded-lg border transition-all ${
                   paymentType === "oneTime"
-                    ? "bg-[#1E3A8A] text-white"
-                    : "bg-gray-100 text-gray-700"
+                    ? "bg-[#1E3A8A] text-white border-[#1E3A8A]"
+                    : "bg-gray-100 text-gray-700 border-gray-300"
                 }`}
                 onClick={() => setPaymentType("oneTime")}
               >
@@ -112,10 +168,10 @@ const Register = () => {
               </button>
               <button
                 type="button"
-                className={`px-6 cursor-pointer py-2 rounded-lg border ${
+                className={`px-6 cursor-pointer py-2 rounded-lg border transition-all ${
                   paymentType === "part"
-                    ? "bg-[#1E3A8A] text-white"
-                    : "bg-gray-100 text-gray-700"
+                    ? "bg-[#1E3A8A] text-white border-[#1E3A8A]"
+                    : "bg-gray-100 text-gray-700 border-gray-300"
                 }`}
                 onClick={() => setPaymentType("part")}
               >
@@ -128,32 +184,57 @@ const Register = () => {
           <div className="bg-[#D2D7E7] p-4 rounded-lg text-center">
             {paymentType === "oneTime" ? (
               <p className="text-lg text-gray-800">
-                💰 You’ll pay{" "}
-                <span className="font-semibold">₦{currentPrice}</span> as a
-                one-time payment.
+                💰 You'll pay{" "}
+                <span className="font-semibold">
+                  ₦{currentPrice.toLocaleString()}
+                </span>{" "}
+                as a one-time payment.
               </p>
             ) : (
               <p className="text-lg text-gray-800">
-                💰 Pay <span className="font-semibold">₦{currentPrice}</span>{" "}
+                💰 Pay{" "}
+                <span className="font-semibold">
+                  ₦{currentPrice.toLocaleString()}
+                </span>{" "}
                 now and{" "}
                 <span className="font-semibold">
-                  ₦{prices[course].part.later}
+                  ₦{prices[course].part.later.toLocaleString()}
                 </span>{" "}
                 later.
               </p>
             )}
           </div>
 
-          {/* Submit Button */}
+          {error && (
+            <div className="text-red-600 text-center bg-red-100 py-2 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
+
           <div className="text-center">
             <button
               type="submit"
-              className="bg-[#1E3A8A] cursor-pointer hover:bg-[#14286E] text-white px-8 py-3 rounded-lg font-medium transition-all"
+              disabled={loading}
+              className={`w-full ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-[#1E3A8A] hover:bg-[#14286E]"
+              } text-white px-8 py-3 rounded-lg font-medium transition-all cursor-pointer`}
             >
-              Pay Now
+              {loading ? "Processing..." : "Pay & Register"}
             </button>
           </div>
         </form>
+
+        <p className="mt-6 text-center text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="text-[#1E3A8A] hover:underline font-medium"
+          >
+            Login here
+          </Link>
+        </p>
       </div>
     </section>
   );
