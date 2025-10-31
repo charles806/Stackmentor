@@ -16,6 +16,8 @@ import PaymentFailed from "./pages/PaymentFailed.jsx";
 import PaymentSuccess from "./pages/PaymentSuccess.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
+import AdminUsers from "./pages/admin/AdminUsers.jsx";
 
 export default function App() {
   return (
@@ -35,6 +37,10 @@ export default function App() {
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/payment-failed" element={<PaymentFailed />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
 
         {/* Protected Learning Material Routes */}
         <Route
