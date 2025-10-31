@@ -18,6 +18,8 @@ import PaymentPage from "./pages/PaymentPage.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import AdminUsers from "./pages/admin/AdminUsers.jsx";
+import AdminContentManager from "./pages/admin/AdminContentManager.jsx";
+import ContentDetail from "./pages/ContentDetail.jsx";
 
 export default function App() {
   return (
@@ -41,6 +43,10 @@ export default function App() {
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/users" element={<AdminUsers />} />
+        <Route path="/admin/content" element={<AdminContentManager />} />
+
+        {/* Course Detail */}
+        <Route path="/content/:id" element={<ContentDetail />} />
 
         {/* Protected Learning Material Routes */}
         <Route
