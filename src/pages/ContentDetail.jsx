@@ -39,7 +39,7 @@ const ContentDetail = () => {
           <p className="text-lg text-gray-700 mb-4">Content not found</p>
           <button
             onClick={() => navigate(-1)}
-            className="px-6 cursor-pointer py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             Go Back
           </button>
@@ -54,7 +54,7 @@ const ContentDetail = () => {
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="flex cursor-pointer items-center gap-2 text-blue-600 hover:text-blue-700 mb-6"
+          className="flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-6"
         >
           <FaArrowLeft /> Back to Course
         </button>
@@ -70,11 +70,20 @@ const ContentDetail = () => {
               {content.title}
             </h1>
             <p className="text-gray-600 text-lg mb-4">{content.description}</p>
-
+            
             <div className="flex items-center gap-4 text-sm text-gray-500">
               <div className="flex items-center gap-2">
                 <FaClock />
-                <span>{new Date(content.createdAt).toLocaleDateString()}</span>
+                <span>
+                  {content.createdAt 
+                    ? new Date(content.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })
+                    : 'Recently added'
+                  }
+                </span>
               </div>
               {content.createdBy && (
                 <span>By {content.createdBy.fullName}</span>
@@ -89,8 +98,7 @@ const ContentDetail = () => {
                 📹 Video Tutorial
               </h3>
               <div className="aspect-video bg-gray-900 rounded-lg overflow-hidden">
-                {content.videoUrl.includes("youtube") ||
-                content.videoUrl.includes("youtu.be") ? (
+                {content.videoUrl.includes("youtube") || content.videoUrl.includes("youtu.be") ? (
                   <iframe
                     src={content.videoUrl.replace("watch?v=", "embed/")}
                     className="w-full h-full"
