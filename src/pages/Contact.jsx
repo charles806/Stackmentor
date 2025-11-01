@@ -86,7 +86,7 @@ const Contact = () => {
             </div>
             <div className="flex items-center gap-3">
               <span className="text-xl">📍</span>
-              <span>Port Harcourt, Nigeria</span>
+              <span>Ibadan, Nigeria</span>
             </div>
           </div>
 
