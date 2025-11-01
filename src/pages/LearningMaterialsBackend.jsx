@@ -232,7 +232,7 @@ const LearningMaterialsBackend = () => {
                 {item.content && (
                   <button
                     onClick={() => navigate(`/content/${item._id}`)}
-                    className="w-full mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition text-sm font-medium"
+                    className="w-full cursor-pointer mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition text-sm font-medium"
                   >
                     View Details
                   </button>

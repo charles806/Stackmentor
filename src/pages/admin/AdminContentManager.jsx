@@ -440,13 +440,13 @@ const AdminContentManager = () => {
                   <button
                     type="button"
                     onClick={handleCloseModal}
-                    className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                    className="flex-1 px-6 py-3 cursor-pointer border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                    className="flex-1 px-6 py-3 cursor-pointer bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                   >
                     {editingContent ? "Update Content" : "Create Content"}
                   </button>

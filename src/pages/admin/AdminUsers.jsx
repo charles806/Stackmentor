@@ -103,7 +103,7 @@ const AdminUsers = () => {
             </div>
             <button
               type="submit"
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+              className="px-6 py-3 cursor-pointer bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
             >
               Search
             </button>
@@ -114,7 +114,7 @@ const AdminUsers = () => {
                   setSearchQuery("");
                   fetchUsers();
                 }}
-                className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+                className="px-6 py-3 cursor-pointer bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
               >
                 Clear
               </button>
@@ -196,14 +196,14 @@ const AdminUsers = () => {
                             onClick={() =>
                               (window.location.href = `/admin/users/${user._id}`)
                             }
-                            className="p-2 text-blue-600 hover:bg-blue-50 rounded transition"
+                            className="p-2 cursor-pointer text-blue-600 hover:bg-blue-50 rounded transition"
                             title="View Details"
                           >
                             <FaEye />
                           </button>
                           <button
                             onClick={() => handleDelete(user._id)}
-                            className="p-2 text-red-600 hover:bg-red-50 rounded transition"
+                            className="p-2 cursor-pointer text-red-600 hover:bg-red-50 rounded transition"
                             title="Delete User"
                           >
                             <FaTrash />
