@@ -9,7 +9,7 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 60000, 
+  timeout: 60000,
 });
 
 // Add token to requests automatically
@@ -140,6 +140,44 @@ export const updateContent = async (contentId, contentData) => {
 
 export const deleteContent = async (contentId) => {
   const response = await api.delete(`/content/${contentId}`);
+  return response.data;
+};
+
+// Contact
+export const sendContactEmail = async (data) => {
+  const response = await api.post("/send-mail", {
+    to: "c08445333@gmail.com",
+    subject: `Contact Form: ${data.fullName}`,
+    message: `From: ${data.fullName} (${data.email})\n\n${data.message}`,
+  });
+  return response.data;
+};
+
+// Certificates
+export const getUserCertificate = async () => {
+  const response = await api.get("/certificates/my-certificate");
+  return response.data;
+};
+
+export const generateCertificate = async () => {
+  const response = await api.post("/certificates/generate");
+  return response.data;
+};
+
+export const verifyCertificate = async (certificateNumber) => {
+  const response = await api.get(`/certificates/verify/${certificateNumber}`);
+  return response.data;
+};
+
+// Payment History
+export const getUserPaymentHistory = async () => {
+  const response = await api.get("/content/payments/history");
+  return response.data;
+};
+
+// Tutor
+export const getTutorStats = async () => {
+  const response = await api.get("/admin/stats");
   return response.data;
 };
 

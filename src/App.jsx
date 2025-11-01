@@ -20,6 +20,11 @@ import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import AdminUsers from "./pages/admin/AdminUsers.jsx";
 import AdminContentManager from "./pages/admin/AdminContentManager.jsx";
 import ContentDetail from "./pages/ContentDetail.jsx";
+import PaymentHistory from "./pages/PaymentHistory.jsx";
+import AdminPayments from "./pages/admin/AdminPayments.jsx";
+import UserDetail from "./pages/admin/UserDetail.jsx";
+import CertificatePage from "./pages/CertificatePage.jsx";
+import TutorDashboard from "./pages/tutor/TutorDashboard.jsx";
 
 export default function App() {
   return (
@@ -34,16 +39,20 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/certificate" element={<CertificatePage />} />
 
         {/* Payment Routes */}
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/payment-failed" element={<PaymentFailed />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-history" element={<PaymentHistory />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/content" element={<AdminContentManager />} />
+        <Route path="/admin/users/:id" element={<UserDetail />} />
+        <Route path="/admin/payments" element={<AdminPayments />} />
 
         {/* Course Detail */}
         <Route path="/content/:id" element={<ContentDetail />} />

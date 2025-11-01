@@ -91,6 +91,12 @@ const Header = () => {
               </div>
             )}
           </div>
+
+          <Link to="/certificate">
+            <button className="px-6 py-3 bg-blue-400 text-white rounded-lg hover:bg-yellow-700 transition cursor-pointer flex items-center gap-2">
+              <FaAward /> View Certificate
+            </button>
+          </Link>
         </div>
       </header>
     );
