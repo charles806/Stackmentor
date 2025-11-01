@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getContentById } from "../components/API/api.jsx";
+import { getContentById } from "../services/api";
 import { FaArrowLeft, FaVideo, FaDownload, FaClock } from "react-icons/fa";
 
 const ContentDetail = () => {
@@ -19,6 +19,7 @@ const ContentDetail = () => {
       setContent(data.content);
     } catch (error) {
       console.error("Failed to fetch content:", error);
+      setContent(null); // Set to null on error
     } finally {
       setLoading(false);
     }
@@ -27,7 +28,10 @@ const ContentDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-lg">Loading content...</p>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-lg">Loading content...</p>
+        </div>
       </div>
     );
   }
