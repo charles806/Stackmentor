@@ -3,6 +3,9 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import { FaUserCircle } from "react-icons/fa";
+import { 
+  FaAward,
+} from "react-icons/fa";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
