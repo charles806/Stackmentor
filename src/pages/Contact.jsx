@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { sendContactEmail } from "../services/api";
+import { sendContactEmail } from "../components/API/api.jsx";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
