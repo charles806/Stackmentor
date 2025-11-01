@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCurrentUser, getCourseContent } from "../services/api";
+import { getCurrentUser, getCourseContent } from "../components/API/api.jsx";
 import {
   FaBook,
   FaVideo,
@@ -158,7 +158,7 @@ const LearningMaterials = () => {
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header Card */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 shadow-xl rounded-2xl p-8 mb-6 text-white">
+        <div className="bg-linear-to-r from-purple-600 to-indigo-600 shadow-xl rounded-2xl p-8 mb-6 text-white">
           <div className="flex items-center gap-4 mb-4">
             <FaLayerGroup className="text-5xl" />
             <div>
@@ -210,7 +210,7 @@ const LearningMaterials = () => {
           <div className="flex flex-wrap gap-2 mb-4">
             <button
               onClick={() => setActiveCourse("all")}
-              className={`px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 ${
+              className={`px-4 py-2 cursor-pointer rounded-lg font-medium transition flex items-center gap-2 ${
                 activeCourse === "all"
                   ? "bg-purple-600 text-white"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -220,7 +220,7 @@ const LearningMaterials = () => {
             </button>
             <button
               onClick={() => setActiveCourse("frontend")}
-              className={`px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 ${
+              className={`px-4 py-2 cursor-pointer rounded-lg font-medium transition flex items-center gap-2 ${
                 activeCourse === "frontend"
                   ? "bg-blue-600 text-white"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -240,7 +240,7 @@ const LearningMaterials = () => {
             </button>
             <button
               onClick={() => setActiveCourse("fullstack")}
-              className={`px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-lg cursor-pointer font-medium transition flex items-center gap-2 ${
                 activeCourse === "fullstack"
                   ? "bg-indigo-600 text-white"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -339,7 +339,7 @@ const LearningMaterials = () => {
                 {item.content && (
                   <button
                     onClick={() => navigate(`/content/${item._id}`)}
-                    className="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition text-sm font-medium"
+                    className="w-full bg-purple-600 cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition text-sm font-medium"
                   >
                     View Details
                   </button>
