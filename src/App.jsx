@@ -57,6 +57,9 @@ export default function App() {
         {/* Course Detail */}
         <Route path="/content/:id" element={<ContentDetail />} />
 
+        {/* Tutor */}
+        <Route path="tutor-dashboard" element={<TutorDashboard />} />
+
         {/* Protected Learning Material Routes */}
         <Route
           path="/learning-materials"
