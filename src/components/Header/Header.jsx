@@ -45,7 +45,7 @@ const Header = () => {
 
   if (isLearningPage && user) {
     return (
-      <header className="bg-[#6175AD] text-white shadow-md">
+      <header className="bg-[#E8EBF3] text-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <Link to="/">
             <h1 className="text-2xl font-bold">StackMentor</h1>
