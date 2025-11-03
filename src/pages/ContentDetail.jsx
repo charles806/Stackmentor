@@ -15,16 +15,21 @@ const ContentDetail = () => {
 
   const fetchContent = async () => {
     try {
+      console.log("Fetching content with ID:", id);
       const data = await getContentById(id);
-      console.log("Content data received:", data);
-      // Check if data.content exists (it should be a single object)
+      console.log("Raw response data:", data);
+      console.log("Content field:", data?.content);
+
       if (data && data.content) {
-        setContent(data.content); // Set the content object directly
+        console.log("Setting content:", data.content);
+        setContent(data.content);
       } else {
-        setContent(null); // Set to null if no content found
+        console.log("No content found, setting to null");
+        setContent(null);
       }
     } catch (error) {
       console.error("Failed to fetch content:", error);
+      console.error("Request failed with status:", error.response?.status);
       console.error("Error details:", error.response?.data);
     } finally {
       setLoading(false);

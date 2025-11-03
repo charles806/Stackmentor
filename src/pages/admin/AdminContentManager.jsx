@@ -16,7 +16,7 @@ import {
   createContent,
   updateContent,
   deleteContent,
-} from "../../components/API/api.jsx" ;
+} from "../../components/API/api.jsx";
 
 const AdminContentManager = () => {
   const [contents, setContents] = useState([]);
@@ -104,18 +104,27 @@ const AdminContentManager = () => {
     e.preventDefault();
 
     try {
+      console.log("Submitting form data:", formData);
+
       if (editingContent) {
-        await updateContent(editingContent._id, formData);
+        console.log("Updating existing content with ID:", editingContent._id);
+        const response = await updateContent(editingContent._id, formData);
+        console.log("Update response:", response);
         alert("Content updated successfully!");
       } else {
-        await createContent(formData);
-        alert("Content created successfully!");
+        console.log("Creating new content");
+        const response = await createContent(formData);
+        console.log("Creation response:", response);
+        console.log("New content ID:", response?.content?._id);
+        alert(`Content created successfully! ID: ${response?.content?._id}`);
       }
 
       handleCloseModal();
-      fetchContent();
+      await fetchContent();
+      console.log("Updated content list:", contents);
     } catch (error) {
       console.error("Failed to save content:", error);
+      console.error("Error details:", error.response?.data);
       alert("Failed to save content. Please try again.");
     }
   };
