@@ -16,10 +16,11 @@ const ContentDetail = () => {
   const fetchContent = async () => {
     try {
       const data = await getContentById(id);
-      setContent(data.content);
+      console.log("Content data received:", data);
+      setContent(data); // ✅ Fix here
     } catch (error) {
       console.error("Failed to fetch content:", error);
-      setContent(null); // Set to null on error
+      console.error("Error details:", error.response?.data);
     } finally {
       setLoading(false);
     }
@@ -38,12 +39,15 @@ const ContentDetail = () => {
 
   if (!content) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-lg text-gray-700 mb-4">Content not found</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center bg-white p-12 rounded-2xl shadow-lg">
+          <p className="text-xl text-gray-700 mb-4">Content not found</p>
+          <p className="text-gray-500 mb-6">
+            This content may have been removed or the link is incorrect.
+          </p>
           <button
             onClick={() => navigate(-1)}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer"
           >
             Go Back
           </button>
@@ -74,19 +78,18 @@ const ContentDetail = () => {
               {content.title}
             </h1>
             <p className="text-gray-600 text-lg mb-4">{content.description}</p>
-            
+
             <div className="flex items-center gap-4 text-sm text-gray-500">
               <div className="flex items-center gap-2">
                 <FaClock />
                 <span>
-                  {content.createdAt 
-                    ? new Date(content.createdAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
+                  {content.createdAt
+                    ? new Date(content.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
                       })
-                    : 'Recently added'
-                  }
+                    : "Recently added"}
                 </span>
               </div>
               {content.createdBy && (
@@ -102,7 +105,8 @@ const ContentDetail = () => {
                 📹 Video Tutorial
               </h3>
               <div className="aspect-video bg-gray-900 rounded-lg overflow-hidden">
-                {content.videoUrl.includes("youtube") || content.videoUrl.includes("youtu.be") ? (
+                {content.videoUrl.includes("youtube") ||
+                content.videoUrl.includes("youtu.be") ? (
                   <iframe
                     src={content.videoUrl.replace("watch?v=", "embed/")}
                     className="w-full h-full"
