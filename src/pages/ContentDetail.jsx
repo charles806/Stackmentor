@@ -17,17 +17,15 @@ const ContentDetail = () => {
     try {
       const data = await getContentById(id);
       console.log("Content data received:", data);
-
-      // Check if data is valid before setting it
-      if (data && typeof data === "object" && Object.keys(data).length > 0) {
-        setContent(data);
+      // Check if data.content exists and has items
+      if (data && data.content && data.content.length > 0) {
+        setContent(data.content[0]); // Take the first item from the content array
       } else {
-        setContent(null); // Set content to null if data is invalid
+        setContent(null); // Set to null if no content found
       }
     } catch (error) {
       console.error("Failed to fetch content:", error);
       console.error("Error details:", error.response?.data);
-      setContent(null); // Ensure content is null on error
     } finally {
       setLoading(false);
     }
