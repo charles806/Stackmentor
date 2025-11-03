@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getContentById } from "../services/api";
+import { getContentById } from "../components/API/api.jsx";
 import { FaArrowLeft, FaVideo, FaDownload, FaClock } from "react-icons/fa";
 
 const ContentDetail = () => {
