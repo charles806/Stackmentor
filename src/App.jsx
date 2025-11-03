@@ -55,7 +55,14 @@ export default function App() {
         <Route path="/admin/payments" element={<AdminPayments />} />
 
         {/* Course Detail */}
-        <Route path="/content/:id" element={<ContentDetail />} />
+        <Route
+          path="/content/:id"
+          element={
+            <ProtectedLearningRoute course="*">
+              <ContentDetail />
+            </ProtectedLearningRoute>
+          }
+        />
 
         {/* Tutor */}
         <Route path="tutor-dashboard" element={<TutorDashboard />} />
