@@ -16,6 +16,7 @@ import PaymentFailed from "./pages/PaymentFailed.jsx";
 import PaymentSuccess from "./pages/PaymentSuccess.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
+import ProtectedLearningRoute from "./pages/ProtectedLearningRoute.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import AdminUsers from "./pages/admin/AdminUsers.jsx";
 import AdminContentManager from "./pages/admin/AdminContentManager.jsx";
@@ -58,9 +59,9 @@ export default function App() {
         <Route
           path="/content/:id"
           element={
-            <ProtectedLearningRoute course="*">
+            <ProtectedRoute>
               <ContentDetail />
-            </ProtectedLearningRoute>
+            </ProtectedRoute>
           }
         />
 
