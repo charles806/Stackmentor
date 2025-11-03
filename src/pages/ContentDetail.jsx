@@ -17,9 +17,9 @@ const ContentDetail = () => {
     try {
       const data = await getContentById(id);
       console.log("Content data received:", data);
-      // Check if data.content exists and has items
-      if (data && data.content && data.content.length > 0) {
-        setContent(data.content[0]); // Take the first item from the content array
+      // Check if data.content exists (it should be a single object)
+      if (data && data.content) {
+        setContent(data.content); // Set the content object directly
       } else {
         setContent(null); // Set to null if no content found
       }
