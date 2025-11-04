@@ -45,7 +45,7 @@ const Header = () => {
 
   if (isLearningPage && user) {
     return (
-      <header className="bg-[#E8EBF3] text-white shadow-md">
+      <header className="bg-[#D2D7E7] text-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <Link to="/">
             <h1 className="text-2xl font-bold">StackMentor</h1>
@@ -98,7 +98,7 @@ const Header = () => {
 
   // Regular pages header
   return (
-    <header className="bg-[#E8EBF3] flex items-center justify-between px-4 md:px-8 py-3 relative">
+    <header className="bg-[#D2D7E7] flex items-center justify-between px-4 md:px-8 py-3 relative">
       <div className="text-xl md:text-2xl font-extralight text-[#1E3A8A] cursor-pointer">
         <Link to="/">StackMentor</Link>
       </div>
@@ -187,7 +187,7 @@ const Header = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.35, ease: "easeInOut" }}
-            className="fixed top-0 right-0 h-full w-[70%] bg-[#E8EBF3] shadow-2xl z-40 flex flex-col items-center justify-center gap-6"
+            className="fixed top-0 right-0 h-full w-[70%] bg-[#D2D7E7] shadow-2xl z-40 flex flex-col items-center justify-center gap-6"
           >
             <Link
               to="/"
