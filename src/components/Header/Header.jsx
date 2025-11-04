@@ -84,7 +84,7 @@ const Header = () => {
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block cursor-pointer w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
                 >
                   Logout
                 </button>
