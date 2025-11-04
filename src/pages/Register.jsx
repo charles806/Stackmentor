@@ -16,16 +16,10 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // const prices = {
-  //   frontend: { oneTime: 50000, part: { upfront: 30000, later: 20000 } },
-  //   backend: { oneTime: 70000, part: { upfront: 42000, later: 28000 } },
-  //   fullstack: { oneTime: 100000, part: { upfront: 60000, later: 40000 } },
-  // };
-
   const prices = {
-    frontend: { oneTime: 100, part: { upfront: 50, later: 50 } }, // Changed from 50000
-    backend: { oneTime: 100, part: { upfront: 50, later: 50 } }, // Changed from 70000
-    fullstack: { oneTime: 100, part: { upfront: 50, later: 50 } }, // Changed from 100000
+    frontend: { oneTime: 50000, part: { upfront: 30000, later: 20000 } },
+    backend: { oneTime: 70000, part: { upfront: 42000, later: 28000 } },
+    fullstack: { oneTime: 100000, part: { upfront: 60000, later: 40000 } },
   };
 
   const currentPrice =
@@ -201,17 +195,12 @@ const Register = () => {
             {paymentType === "oneTime" ? (
               <p className="text-lg text-gray-800">
                 💰 You'll pay{" "}
-                <span className="font-semibold">
-                  ₦{currentPrice.toLocaleString()}
-                </span>{" "}
-                as a one-time payment.
+                <span className="font-semibold">₦{currentPrice.toLocaleString()}</span> as a
+                one-time payment.
               </p>
             ) : (
               <p className="text-lg text-gray-800">
-                💰 Pay{" "}
-                <span className="font-semibold">
-                  ₦{currentPrice.toLocaleString()}
-                </span>{" "}
+                💰 Pay <span className="font-semibold">₦{currentPrice.toLocaleString()}</span>{" "}
                 now and{" "}
                 <span className="font-semibold">
                   ₦{prices[course].part.later.toLocaleString()}
@@ -244,10 +233,7 @@ const Register = () => {
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <Link
-            to="/login"
-            className="text-[#1E3A8A] hover:underline font-medium"
-          >
+          <Link to="/login" className="text-[#1E3A8A] hover:underline font-medium">
             Login here
           </Link>
         </p>
