@@ -26,6 +26,7 @@ import AdminPayments from "./pages/admin/AdminPayments.jsx";
 import UserDetail from "./pages/admin/UserDetail.jsx";
 import CertificatePage from "./pages/CertificatePage.jsx";
 import TutorDashboard from "./pages/tutor/TutorDashboard.jsx";
+import DiscountBanner from "./components/DiscountBanner/DiscountBanner.jsx";
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/certificate" element={<CertificatePage />} />
+        <Route path="/discount" element={<DiscountBanner />} />
 
         {/* Payment Routes */}
         <Route path="/payment" element={<PaymentPage />} />

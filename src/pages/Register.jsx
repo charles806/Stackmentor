@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { initializePayment } from "../components/API/api.jsx";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaTag } from "react-icons/fa";
+import { getCurrentPrices, getPriceWithDiscount, isDiscountActive, getDiscountPercentage } from "../utils/discountUtils.js";
 
 const Register = () => {
   const [course, setCourse] = useState("frontend");
@@ -16,11 +17,10 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const prices = {
-    frontend: { oneTime: 50000, part: { upfront: 30000, later: 20000 } },
-    backend: { oneTime: 70000, part: { upfront: 42000, later: 28000 } },
-    fullstack: { oneTime: 100000, part: { upfront: 60000, later: 40000 } },
-  };
+  // Get current prices (with discount if active)
+  const prices = getCurrentPrices();
+  const hasDiscount = isDiscountActive();
+  const discountPercentage = getDiscountPercentage();
 
   const currentPrice =
     paymentType === "oneTime"
@@ -136,7 +136,7 @@ const Register = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute cursor-pointer right-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-[#1E3A8A] transition"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-[#1E3A8A] transition"
               >
                 {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
               </button>
